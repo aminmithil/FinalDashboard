@@ -124,7 +124,6 @@
 					selectedColumns.push(columns[i].id);
 				}
 			}
-			console.log('selected column', selectedColumns);
 			
 			datasetStatistics(selectedColumns, df);
 		}
@@ -140,7 +139,6 @@
 					selectedColumns.push(columns[i].id);
 				}
 			}
-			console.log('selected column', selectedColumns);
 			
 			datasetFilter(selectedColumns, df);
 		}
@@ -149,9 +147,6 @@
 			var numericColumns = [];
 			var heading = df.listColumns();			
 			for(var i=0; i<selectedColumns.length; i++){
-				console.log('in loop')
-				console.log(df.toArray()[0][selectedColumns[i]])
-				console.log('is Number', isNumber(df.toArray()[0][selectedColumns[i]]));
 				if(isNumber(df.toArray()[0][selectedColumns[i]]) == false) {
 					stringColumns.push(selectedColumns[i]);
 				} 
@@ -211,7 +206,6 @@
 			var heading = df.listColumns();
 			var statisticsTbl = "<table class=bordered><tr><td>Column Name</td><td>Max</td><td>Min</td><td>Mean</td><td>Average</td><td>Standard Deviation</td></tr>";
 			for(var i=0; i<checkedStatisticsColumns.length; i++) {
-				console.log('checkedStatisticsColumns', heading[numericColumns[checkedStatisticsColumns[i]]]);
 				var max = df.stat.max(heading[numericColumns[checkedStatisticsColumns[i]]]);
 				var min = df.stat.min(heading[numericColumns[checkedStatisticsColumns[i]]]);
 				var mean = df.stat.mean(heading[numericColumns[checkedStatisticsColumns[i]]]);
@@ -231,9 +225,6 @@
 			var numericColumns = [];
 			var heading = df.listColumns();			
 			for(var i=0; i<selectedColumns.length; i++){
-				console.log('in loop')
-				console.log(df.toArray()[0][selectedColumns[i]])
-				console.log('is Number', isNumber(df.toArray()[0][selectedColumns[i]]));
 				if(isNumber(df.toArray()[0][selectedColumns[i]]) == false)
 				{
 					stringColumns.push(selectedColumns[i]);
@@ -267,13 +258,11 @@
 			var heading = df.listColumns();
 			var excludeCheckBox = "<table class=bordered>";
 			var className = "filled-in";
-			console.log('string columns in exclude area', stringColumns);
 			for(var i=0; i<stringColumns.length; i++) {
 				var num = Number(stringColumns[i]);
 				var columnName = heading[num];
 
 				var distinctValue = df.distinct(columnName).toArray();
-				console.log('distinct value', distinctValue);
 				for (var j=0; j<distinctValue.length; j++) {
 					id = j+2000
 					
@@ -303,7 +292,6 @@
 			}
 			var filterCondition = "<h5 align=center>Please Select the Value for Filter Condition</h5>";
 			var m = 100000;
-			console.log('numericConditionValue', numericConditionValue);
 			for(var i = 0; i<numericConditionValue.length; i++){
 				filterCondition += "<input name=conditionValue type=radio id=" + m + " value="+ numericConditionValue[i] +"><label for=" + m + ">" + numericConditionValue[i] + "</label>";
 				m++;
