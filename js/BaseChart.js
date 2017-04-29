@@ -24,9 +24,7 @@ class ConfiguredChart extends BaseChart {
 		this.chart_data = chart_data;
 		this.config = new Configuration();
 		this.temp = this.chartData["data"]["datasets"][0];
-		this.color = this.chart_data["data"]["labels"];
-		console.log('passing data', this.color);
-		this.temp["backgroundColor"] = this.config.backGroundColour(this.color);
+		this.temp["backgroundColor"] = this.config.backGroundColour(this.chart_data["data"]["labels"].length);
 		this.chart_data["data"]["datasets"][0] = this.temp;
 
 		super.draw_chart(this.chart_area, this.chart_data);
@@ -193,7 +191,7 @@ class PivotChart extends ConfiguredChart {
 			}
 			this.arrayData["data"] = this.tempData;
 			this.arrayData["label"] = this.label[this.i];
-			this.arrayData["backgroundColor"] = this.config.backGroundColour(this.tempData)[this.i];
+			this.arrayData["backgroundColor"] = this.config.backGroundColour(this.maxValue)[this.i];
 			this.datasets.push(this.arrayData);
 		}
 
@@ -259,7 +257,7 @@ class StackChart extends BarChart {
 			}
 			this.arrayData["data"] = this.tempData;
 			this.arrayData["label"] = this.label[this.i];
-			this.arrayData["backgroundColor"] = this.config.backGroundColour(this.tempData)[this.i];
+			this.arrayData["backgroundColor"] = this.config.backGroundColour(this.maxValue)[this.i];
 			this.datasets.push(this.arrayData);
 		}
 
@@ -303,9 +301,8 @@ class Configuration {
 	
 	backGroundColour(data){
 		this.data = data;
-		console.log('data', this.data);
 		this.arr=[];
-		for (this.i = 0; this.i < this.data.length; this.i++ ) {
+		for (this.i = 0; this.i < this.data; this.i++ ) {
 		    this.hue = 'rgb(' + (Math.floor(Math.random() * 256)) +
 			 ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (0.6) + ')';
 			this.arr.push(this.hue);
