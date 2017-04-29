@@ -1,13 +1,11 @@
 <html>
 <head>
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<!--Import materialize.css-->
+
 	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
 	<link rel="stylesheet" type="text/css" href="css/main.css"/>
 
 	<script src="js/dataframe.js"></script> 
-	<script src="js/jquery-3.2.0.min.js"></script>
-	<script src="js/dataset.js"></script>
 	<script src="js/BaseChart.js"></script>
 </head>
 <body>
@@ -327,8 +325,6 @@
 					}
 				}
 			}
-			console.log('conditionStringColumns', conditionStringColumns);
-			console.log('excludeValue', excludeValue);
 			var dataframe = df;
 			if(conditionStringColumns.length != 0) {
 				for(var i=0; i<conditionStringColumns.length; i++) {
@@ -345,8 +341,6 @@
 							var condi = condition[i].id;
 							var value = filterValue[j].value;
 
-							console.log('condi', condi);
-							console.log('value', value);
 							for(var k=0; k<numericColumns.length; k++) {
 								if(condi == 'gt') {
 									dataframe = dataframe.filter(row => row.get(heading[numericColumns[k]]) >= Number(value));
@@ -369,13 +363,10 @@
 				}
 			} 
 
-			console.log('final', label);
-
 			var j=0;
 			var data = [];
 			for(var i=0; i<stringColumns.length; i++) {
 				var dataframeArray = dataframe.select(heading[stringColumns[i]]).distinct(heading[stringColumns[i]]).count();
-				console.log('dataframe Array', dataframeArray);
 				dataframeArray = dataframeArray+j;
 				while(dataframeArray != j) {
 					var count = dataframe.filter(row => row.get(heading[stringColumns[i]]) == label[j]).count();
@@ -384,7 +375,6 @@
 				}
 			}
 
-			
 			generateChart(data, label);
 		}
 
@@ -393,34 +383,32 @@
 
 			var chartType = document.getElementsByName('chart');
 
-			console.log('chart data', data);
-			console.log('chart label', label);
 			for(var i=0; i<chartType.length; i++) {
 				if(chartType[i].checked) {
 					var chartTyp = chartType[i].id;
 					if(chartTyp == "bar") {
 						// bar
-						var area = 'barChart';
+						var area = document.getElementById('barChart');
 						var bar = new BarChart(area, data, label);
 						bar.plotChart();
 					} else if (chartTyp == "line") {
 						// line
-						var area = 'lineChart';
+						var area = document.getElementById('lineChart');
 						var line = new LineChart(area, data, label);
 						line.plotChart();
 					} else if (chartTyp == "pie") {
 						// pie
-						var area = 'pieChart';
+						var area = document.getElementById('pieChart');
 						var pie = new PieChart(area, data, label);
 						pie.plotChart();
 					} else if (chartTyp == "stacked") {
 						// stacked
-						var area = 'stackedChart';
+						var area = document.getElementById('stackedChart');
 						var stack = new StackChart(area, data, label);
 						stack.plotChart();
 					} else if (chartTyp == "pivot") {
 						// pivot
-						var area = 'pivotChart';
+						var area = document.getElementById('pivotChart');
 						var pivot = new PivotChart(area, data, label);
 						pivot.plotChart();
 					}

@@ -12,7 +12,7 @@ class BaseChart {
 			this.settings = settings;
 			new Chart(this.area, this.settings);
 		}, 200); 
-	}	
+	}
 }
 
 class ConfiguredChart extends BaseChart {
@@ -322,7 +322,6 @@ class Configuration {
 	constructor() {
 	}
 
-	
 	backGroundColour(data){
 		this.data = data;
 		this.arr=[];
