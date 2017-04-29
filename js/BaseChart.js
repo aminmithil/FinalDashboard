@@ -217,9 +217,21 @@ class PivotChart extends ConfiguredChart {
 
 		this.options = {};
 		this.options["scales"] = this.scales;
+		this.legend = {};
+		this.legend["display"] = false;
+
+		this.options["legend"] = this.legend;
+
+		this.callbacks = {};
+		this.callbacks["label"] = function(tooltipItem) {
+			return tooltipItem.yLabel;
+		}
+		this.tooltips = {};
+		this.tooltips["callbacks"] = this.callbacks;
+		this.options["tooltips"] = this.tooltips;
 
 		this.chartData["options"] = this.options;
-
+		console.log('chartData', this.chartData);
 		return this.chartData;
 	}
 
@@ -283,9 +295,21 @@ class StackChart extends BarChart {
 
 		this.options = {};
 		this.options["scales"] = this.scales;
+		this.legend = {};
+		this.legend["display"] = false;
+
+		this.options["legend"] = this.legend;
+
+		this.callbacks = {};
+		this.callbacks["label"] = function(tooltipItem) {
+			return tooltipItem.yLabel;
+		}
+		this.tooltips = {};
+		this.tooltips["callbacks"] = this.callbacks;
+		this.options["tooltips"] = this.tooltips;
 
 		this.chartData["options"] = this.options;
-
+		console.log('chartData', this.chartData);
 		return this.chartData;
 	}
 
@@ -307,7 +331,6 @@ class Configuration {
 			 ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (0.6) + ')';
 			this.arr.push(this.hue);
 		}
-		console.log('color array', this.arr);
 		return this.arr;
 	}
 }
