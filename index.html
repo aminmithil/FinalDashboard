@@ -209,7 +209,7 @@
 			}
 
 			var heading = df.listColumns();
-			var statisticsTbl = "<table class=bordered><tr><td>Column Name</td><td>Max</td><td>Min</td><td>Mean</td><td>Average</td><td>Standerd Deviation</td></tr>";
+			var statisticsTbl = "<table class=bordered><tr><td>Column Name</td><td>Max</td><td>Min</td><td>Mean</td><td>Average</td><td>Standard Deviation</td></tr>";
 			for(var i=0; i<checkedStatisticsColumns.length; i++) {
 				console.log('checkedStatisticsColumns', heading[numericColumns[checkedStatisticsColumns[i]]]);
 				var max = df.stat.max(heading[numericColumns[checkedStatisticsColumns[i]]]);
