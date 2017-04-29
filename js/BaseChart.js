@@ -231,7 +231,6 @@ class PivotChart extends ConfiguredChart {
 		this.options["tooltips"] = this.tooltips;
 
 		this.chartData["options"] = this.options;
-		console.log('chartData', this.chartData);
 		return this.chartData;
 	}
 
@@ -309,7 +308,6 @@ class StackChart extends BarChart {
 		this.options["tooltips"] = this.tooltips;
 
 		this.chartData["options"] = this.options;
-		console.log('chartData', this.chartData);
 		return this.chartData;
 	}
 
