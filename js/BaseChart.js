@@ -13,7 +13,6 @@ class ChartController {
 
 	findChartInstance() {
 		this.chartFactory = new ChartFactory();
-		console.log('type', this.type);
 		this.chart = this.chartFactory.getChart(this.type);
 		this.chart.plotChart(this.area, this.data, this.label);
 	}
@@ -32,7 +31,7 @@ class ChartFactory {
 		} else if(this.type == 'pie') {
 			return new PieChart();
 		} else if(this.type == 'stacked') {
-			return new StackChart();
+			return new StackedChart();
 		} else if(this.type == 'pivot') {
 			return new PivotChart();
 		}
@@ -282,7 +281,7 @@ class PivotChart extends ConfiguredChart {
 	}
 }
 
-class StackChart extends BarChart {
+class StackedChart extends BarChart {
 	constructor(){
 		super();
 	}
