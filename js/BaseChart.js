@@ -58,9 +58,15 @@ class ConfiguredChart extends BaseChart {
 	create_settings(chart_area, chart_data) {
 		this.chart_area = chart_area;
 		this.chart_data = chart_data;
-		this.config = new Configuration();
+		this.iterator = new Iterator(this.chart_data["data"]["labels"].length);
 		this.temp = this.chartData["data"]["datasets"][0];
-		this.temp["backgroundColor"] = this.config.backGroundColour(this.chart_data["data"]["labels"].length);
+
+		this.bgColor = [];
+		for(this.i=0; this.i<this.chart_data["data"]["labels"].length; this.i++) {
+			this.bgColor.push(this.iterator.getBackGroundColor(this.i));
+		}
+
+		this.temp["backgroundColor"] = this.bgColor;
 		this.chart_data["data"]["datasets"][0] = this.temp;
 
 		super.draw_chart(this.chart_area, this.chart_data);
@@ -210,8 +216,8 @@ class PivotChart extends ConfiguredChart {
 
 	createData() {
 		this.datasets = [];
-		this.config = new Configuration(); 
 		this.maxValue = Math.max.apply(null, this.data);
+		this.bgColor = new Iterator(this.maxValue); 
 
 		for(this.i=0; this.i<this.maxValue; this.i++) {
 			this.arrayData = {};
@@ -225,7 +231,7 @@ class PivotChart extends ConfiguredChart {
 			}
 			this.arrayData["data"] = this.tempData;
 			this.arrayData["label"] = this.label[this.i];
-			this.arrayData["backgroundColor"] = this.config.backGroundColour(this.maxValue)[this.i];
+			this.arrayData["backgroundColor"] = this.bgColor.getBackGroundColor(this.i);
 			this.datasets.push(this.arrayData);
 		}
 
@@ -287,8 +293,8 @@ class StackChart extends BarChart {
 
 	createData() {
 		this.datasets = [];
-		this.config = new Configuration(); 
 		this.maxValue = Math.max.apply(null, this.data);
+		this.bgColor = new Iterator(this.maxValue); 
 
 		for(this.i=0; this.i<this.maxValue; this.i++) {
 			this.arrayData = {};
@@ -302,7 +308,7 @@ class StackChart extends BarChart {
 			}
 			this.arrayData["data"] = this.tempData;
 			this.arrayData["label"] = this.label[this.i];
-			this.arrayData["backgroundColor"] = this.config.backGroundColour(this.maxValue)[this.i];
+			this.arrayData["backgroundColor"] = this.bgColor.getBackGroundColor(this.i);
 			this.datasets.push(this.arrayData);
 		}
 
@@ -353,8 +359,27 @@ class StackChart extends BarChart {
 	}
 }
 
-class Configuration {
+class Iterator {
+	constructor(length) {
+		this.length = length;
+		this.bgColor = new BackGroundColor();
+		this.backGroundArray = this.bgColor.backGroundColour(this.length);
+	}
+
+	getBackGroundColor(indexOf) {
+		this.index = indexOf;
+		return this.backGroundArray[this.index];
+	}
+}
+
+class Decorator {
+	backGroundColour(data) {
+		throw new Error('This method should be overwritten!');
+	}
+}
+class BackGroundColor extends Decorator{
 	constructor() {
+		super();
 	}
 
 	backGroundColour(data){
