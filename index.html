@@ -7,6 +7,7 @@
 
 	<script src="js/dataframe.js"></script> 
 	<script src="js/BaseChart.js"></script>
+	<script src="js/Statistics.js"></script>
 </head>
 <body>
 	<h3 align="center">Open Space - Parks</h3>
@@ -192,30 +193,12 @@
 		}
 
 		function displayTable(selectedColumns, numericColumns, df) {
-			var statisticCheckBox = document.getElementsByName('statisticsColumn');
 
-			var checkedStatisticsColumns = [];
-			for(var i=0; i<statisticCheckBox.length; i++) {
-				if(statisticCheckBox[i].checked) {
-					var id = statisticCheckBox[i].id-9999;
-					checkedStatisticsColumns.push(id);
-				}
-			}
+			var statistics = new Statistics(selectedColumns, numericColumns, df);
 
-			var heading = df.listColumns();
-			var statisticsTbl = "<table class=bordered><tr><td>Column Name</td><td>Max</td><td>Min</td><td>Mean</td><td>Average</td><td>Standard Deviation</td></tr>";
-			for(var i=0; i<checkedStatisticsColumns.length; i++) {
-				var max = df.stat.max(heading[numericColumns[checkedStatisticsColumns[i]]]);
-				var min = df.stat.min(heading[numericColumns[checkedStatisticsColumns[i]]]);
-				var mean = df.stat.mean(heading[numericColumns[checkedStatisticsColumns[i]]]);
-				var avg = df.stat.min(heading[numericColumns[checkedStatisticsColumns[i]]]);
-				var sd = df.stat.sd(heading[numericColumns[checkedStatisticsColumns[i]]]);
+			var display = statistics.generateStatistics();
 
-				statisticsTbl += "<tr><td>"+ heading[numericColumns[checkedStatisticsColumns[i]]] +"</td><td>" + max + "</td><td>" + min + "</td><td>" + mean + "</td><td>" + avg + "</td><td>" + sd + "</td></tr>";
-			}
-			statisticsTbl += "</table>";
-
-			document.getElementById('statisticsTable').innerHTML = statisticsTbl;
+			document.getElementById('statisticsTable').innerHTML = display;
 		}
 
 		function datasetFilter(selectedColumns, df) {
