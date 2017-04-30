@@ -9,7 +9,7 @@
 	<script src="js/BaseChart.js"></script>
 </head>
 <body>
-	<h3>Open Space - Parks</h3>
+	<h3 align="center">Open Space - Parks</h3>
 	
 	<div class="nav" align="center">
 		<a class="waves-effect waves-light btn" href="#" onclick="dataset1()" id="d1">DataSet 1</a>
@@ -36,6 +36,7 @@
 
 	<div id="filterArea" border="1">
 		<h5 align="center" id="label_exclude">Please select the Filters to Exclude(Categorical Value)</h5>
+		<div id="warningMessage"></div>
 		<div id="excludeArea" align="center" border="1"></div>
 		<h5 align="center" id="label_condition">Please Select the filter Condition</h5>
 		<div align="center" id="condition">
@@ -250,6 +251,8 @@
 			}
 			if(stringColumns.length == 0) {
 				document.getElementById('label_exclude').style.display = 'none';
+				document.getElementById('warningMessage').style.display = 'block';
+				document.getElementById('warningMessage').innerHTML = "<h3 align=center>Please Select Column</h3>";
 			} else {
 				document.getElementById('label_exclude').style.display = 'block';
 			}
@@ -389,28 +392,28 @@
 					if(chartTyp == "bar") {
 						// bar
 						var area = document.getElementById('barChart');
-						var bar = new BarChart(area, data, label);
-						bar.plotChart();
+						var bar = new ChartController(area, data, label, 'bar');
+						bar.findChartInstance();
 					} else if (chartTyp == "line") {
 						// line
 						var area = document.getElementById('lineChart');
-						var line = new LineChart(area, data, label);
-						line.plotChart();
+						var line = new ChartController(area, data, label, 'line');
+						line.findChartInstance();
 					} else if (chartTyp == "pie") {
 						// pie
 						var area = document.getElementById('pieChart');
-						var pie = new PieChart(area, data, label);
-						pie.plotChart();
+						var pie = new ChartController(area, data, label, 'pie');
+						pie.findChartInstance();
 					} else if (chartTyp == "stacked") {
 						// stacked
 						var area = document.getElementById('stackedChart');
-						var stack = new StackChart(area, data, label);
-						stack.plotChart();
+						var stack = new ChartController(area, data, label, 'stacked');
+						stack.findChartInstance();
 					} else if (chartTyp == "pivot") {
 						// pivot
 						var area = document.getElementById('pivotChart');
-						var pivot = new PivotChart(area, data, label);
-						pivot.plotChart();
+						var pivot = new ChartController(area, data, label, 'pivot');
+						pivot.findChartInstance();
 					}
 				}
 			}
@@ -437,7 +440,7 @@
 					HTML += "</table>";
 					document.getElementById("outputDiv").innerHTML = HTML;
 
-					var checkBox = "<table class=bordered>";
+					var checkBox = "<h5 align=center>Please Select Column</h5><br><table class=bordered>";
 					for(var i=0; i<heading.length; i++){
 						if(i%6 == 0)
 							checkBox += "<tr><td><input type=checkbox id=" + i + " name=" + columns +" class=filled-in><label for="+i+">" + heading[i] + "</label></td>";
@@ -484,7 +487,7 @@
 					HTML += "</table>";
 					document.getElementById("outputDiv").innerHTML = HTML;
 
-					var checkBox = "<table class=bordered>";
+					var checkBox = "<h5 align=center>Please Select Column</h5><br><table class=bordered>";
 					for(var i=0; i<heading.length; i++){
 						if(i%6 == 0)
 							checkBox += "<tr><td><input type=checkbox id=" + i + " name=" + columns +" class=filled-in><label for="+i+">" + heading[i] + "</label></td>";
@@ -531,7 +534,7 @@
 					HTML += "</table>";
 					document.getElementById("outputDiv").innerHTML = HTML;
 
-					var checkBox = "<table class=bordered>";
+					var checkBox = "<h5 align=center>Please Select Column</h5><br><table class=bordered>";
 					for(var i=0; i<heading.length; i++){
 						if(i%6 == 0)
 							checkBox += "<tr><td><input type=checkbox id=" + i + " name=" + columns +" class=filled-in><label for="+i+">" + heading[i] + "</label></td>";
@@ -578,7 +581,7 @@
 					HTML += "</table>";
 					document.getElementById("outputDiv").innerHTML = HTML;
 
-					var checkBox = "<table class=bordered>";
+					var checkBox = "<h5 align=center>Please Select Column</h5><br><table class=bordered>";
 					for(var i=0; i<heading.length; i++){
 						if(i%6 == 0)
 							checkBox += "<tr><td><input type=checkbox id=" + i + " name=" + columns +" class=filled-in><label for="+i+">" + heading[i] + "</label></td>";
@@ -625,7 +628,7 @@
 					HTML += "</table>";
 					document.getElementById("outputDiv").innerHTML = HTML;
 
-					var checkBox = "<table class=bordered>";
+					var checkBox = "<h5 align=center>Please Select Column</h5><br><table class=bordered>";
 					for(var i=0; i<heading.length; i++){
 						if(i%6 == 0)
 							checkBox += "<tr><td><input type=checkbox id=" + i + " name=" + columns +" class=filled-in><label for="+i+">" + heading[i] + "</label></td>";

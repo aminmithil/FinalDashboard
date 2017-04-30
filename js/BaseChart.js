@@ -3,6 +3,42 @@ s.type = "text/javascript";
 document.head.appendChild(s);
 s.src = "js/Chart.min.js";
 
+class ChartController {
+	constructor(area, data, label, type) {
+		this.area = area;
+		this.data = data;
+		this.label = label;
+		this.type = type;
+	}
+
+	findChartInstance() {
+		this.chartFactory = new ChartFactory();
+		console.log('type', this.type);
+		this.chart = this.chartFactory.getChart(this.type);
+		this.chart.plotChart(this.area, this.data, this.label);
+	}
+}
+
+class ChartFactory {
+	constructor() {
+	}
+
+	getChart(type) {
+		this.type = type;
+		if (this.type == 'bar') {
+			return new BarChart();
+		} else if(this.type == 'line') {
+			return new LineChart();
+		} else if(this.type == 'pie') {
+			return new PieChart();
+		} else if(this.type == 'stacked') {
+			return new StackChart();
+		} else if(this.type == 'pivot') {
+			return new PivotChart();
+		}
+	}
+}
+
 class BaseChart {
 	constructor(){
 	}
@@ -32,11 +68,8 @@ class ConfiguredChart extends BaseChart {
 }
 
 class PieChart extends ConfiguredChart {
-	constructor(area, data, label){
+	constructor(){
 		super();
-		this.area = area;
-		this.data = data;
-		this.label = label;
 	}
 
 	createType() {
@@ -68,17 +101,18 @@ class PieChart extends ConfiguredChart {
 		return this.chartData;
 	}
 
-	plotChart(){
+	plotChart(area, data, label){
+		this.area = area;
+		this.data = data;
+		this.label = label;
 		super.create_settings(this.area, this.createSettings());
 	}
 }
 
 class BarChart extends ConfiguredChart {
-	constructor(area, data, label){
+	constructor(){
 		super();
-		this.area = area;
-		this.data = data;
-		this.label = label;
+		
 	}
 
 	createType() {
@@ -111,17 +145,17 @@ class BarChart extends ConfiguredChart {
 		return this.chartData;
 	}
 
-	plotChart(){
+	plotChart(area, data, label){
+		this.area = area;
+		this.data = data;
+		this.label = label;
 		super.create_settings(this.area, this.createSettings());
 	}
 }
 
 class LineChart extends ConfiguredChart {
-	constructor(area, data, label){
+	constructor(){
 		super();
-		this.area = area;
-		this.data = data;
-		this.label = label;
 	}
 
 	createType() {
@@ -153,17 +187,17 @@ class LineChart extends ConfiguredChart {
 		return this.chartData;
 	}
 
-	plotChart(){
+	plotChart(area, data, label){
+		this.area = area;
+		this.data = data;
+		this.label = label;
 		super.create_settings(this.area, this.createSettings());
 	}
 }
 
 class PivotChart extends ConfiguredChart {
-	constructor(area, data, label){
+	constructor(){
 		super();
-		this.area = area;
-		this.data = data;
-		this.label = label;
 	}
 
 	createType() {
@@ -234,17 +268,17 @@ class PivotChart extends ConfiguredChart {
 		return this.chartData;
 	}
 
-	plotChart(){
+	plotChart(area, data, label){
+		this.area = area;
+		this.data = data;
+		this.label = label;
 		super.create_settings(this.area, this.createSettings());
 	}
 }
 
 class StackChart extends BarChart {
-	constructor(area, data, label){
+	constructor(){
 		super();
-		this.area = area;
-		this.data = data;
-		this.label = label;
 	}
 
 	createLabel() {
@@ -311,7 +345,10 @@ class StackChart extends BarChart {
 		return this.chartData;
 	}
 
-	plotChart(){
+	plotChart(area, data, label){
+		this.area = area;
+		this.data = data;
+		this.label = label;
 		super.create_settings(this.area, this.createSettings());
 	}
 }

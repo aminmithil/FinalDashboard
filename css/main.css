@@ -41,7 +41,6 @@ body{
 }
 
 h3 {
-	margin-left: 80px;
 	color: #C70039;
 }
 
@@ -113,4 +112,8 @@ td {
 
 #statTable {
     margin-top: 10px;
+}
+
+#warningMessage {
+    display: none;
 }
